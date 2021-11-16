@@ -1,1 +1,3 @@
-export { default as PathFindingEdge } from './edge/PathFindingEdge.vue'
+import PathFindingEdge from './edge/PathFindingEdge.vue'
+
+export default PathFindingEdge

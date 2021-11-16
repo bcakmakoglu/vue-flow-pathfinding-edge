@@ -1,0 +1,37 @@
+{
+  "name": "temple-of-time",
+  "version": "0.0.1",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcakmakoglu/temple-of-time"
+  },
+  "keywords": [
+    "braks"
+  ],
+  "license": "MIT",
+  "author": "Burak Cakmakoglu<https://github.com/bcakmakoglu>",
+  "homepage": "https://github.com/bcakmakoglu/temple-of-time#readme",
+  "exports": {
+    ".": {
+      "import": "./dist/temple-of-time.esm.js",
+      "require": "./dist/temple-of-time.cjs.js"
+    },
+    "./*": "./*"
+  },
+  "main": "./dist/temple-of-time.cjs.js",
+  "types": "./dist/temple-of-time.d.ts",
+  "module": "./dist/temple-of-time.esm.js",
+  "unpkg": "./dist/temple-of-time.iife.min.js",
+  "jsdelivr": "./dist/temple-of-time.iife.min.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "exit 0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
+  }
+}

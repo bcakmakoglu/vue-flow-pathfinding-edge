@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { CSSProperties } from 'vue'
-import PathFindingEdge from './PathFinderEdge.vue'
-import { ArrowHeadType, ElementId, Position, useStore } from '@braks/vue-flow'
+import { ArrowHeadType, ElementId, Node, Position } from '@braks/vue-flow'
+import PathFindingEdge from './PathFindingEdge.vue'
 
 interface EdgeProps {
+  nodes: Node[]
   id: ElementId
   source: ElementId
   target: ElementId
@@ -43,11 +44,10 @@ const props = withDefaults(defineProps<EdgeProps>(), {
   labelBgStyle: () => ({}),
 })
 
-const store = useStore()
-const storedNodes = computed(() => store.nodes)
+const storedNodes = computed(() => props.nodes)
 const p = computed(() => props)
-const nodes = useDebounce(storedNodes, 200)
-const debouncedProps = useDebounce(p, 200)
+const nodes = useDebounce(storedNodes, 1000)
+const debouncedProps = useDebounce(p, 1000)
 </script>
 <template>
   <PathFindingEdge :nodes="nodes" v-bind="debouncedProps" />

@@ -866,7 +866,7 @@
     "@vueuse/shared" "5.3.0"
     vue-demi "*"
 
-"@vueuse/core@^6.6.2":
+"@vueuse/core@^6.6.2", "@vueuse/core@^6.9.1":
   version "6.9.1"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.9.1.tgz#b28ae875b618d3865c5a5ceefd9184b3155e8777"
   integrity sha512-msa36DxnnbIu41bUTvfSudF6TL4wo0+Yrpw6yr1bFtwtYTOo8GZXYWPKyvXUVGhBBqrTVNTqsTtD0eXXHJ3roA==

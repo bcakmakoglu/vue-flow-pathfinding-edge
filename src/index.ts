@@ -1,2 +1,1 @@
-export { default as PathFindingEdge } from './edge/PathFinderEdge.vue'
-export { default as DebouncedPathFindingEdge } from './edge/DebouncedPathFindingEdge.vue'
+export { default as PathFindingEdge } from './edge/PathFindingEdge.vue'

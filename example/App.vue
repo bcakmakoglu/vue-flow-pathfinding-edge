@@ -13,7 +13,7 @@ import {
   useStore,
 } from '@braks/vue-flow'
 import initialElements from './elements'
-import { PathFindingEdge } from '~/index'
+import PathFindingEdge from '~/index'
 
 const store = useStore()
 const elements = ref<Elements>(initialElements)

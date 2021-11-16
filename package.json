@@ -30,7 +30,7 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
-    "@braks/vue-flow": "^0.0.13",
+    "@braks/vue-flow": "latest",
     "@vueuse/core": "^6.9.1",
     "pathfinding": "^0.4.18"
   },

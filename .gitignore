@@ -97,4 +97,3 @@ hasura/db_data/
 types/types.ts
 
 build
-cypress/screenshots

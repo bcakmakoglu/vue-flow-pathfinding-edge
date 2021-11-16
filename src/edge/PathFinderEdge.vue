@@ -93,5 +93,5 @@ const markerEnd = computed(() => getMarkerEnd(props.arrowHeadType, props.markerE
 </script>
 <template>
   <BezierEdge v-if="gridPath.length <= 2" v-bind="props" />
-  <path :style="props.style" class="vue-flow__edge-path" :d="svgPathString" :marker-end="markerEnd" />
+  <path v-else :style="props.style" class="vue-flow__edge-path" :d="svgPathString" :marker-end="markerEnd" />
 </template>

@@ -53,5 +53,9 @@ body,
 #root {
   height: 100%;
   width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
 }
 </style>

@@ -130,9 +130,9 @@ export default [
     arrowHeadType,
   },
   {
-    id: 'e2a2a',
+    id: 'e2a2b',
     source: '2a',
-    target: '2a',
+    target: '2b',
     type: 'pathFinding',
     arrowHeadType,
   },

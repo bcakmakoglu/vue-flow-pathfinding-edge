@@ -1,4 +1,4 @@
-import { ArrowHeadType } from '@braks/vue-flow'
+import { ArrowHeadType, Elements } from '@braks/vue-flow'
 
 const arrowHeadType = ArrowHeadType.Arrow
 
@@ -136,4 +136,4 @@ export default [
     type: 'pathFinding',
     arrowHeadType,
   },
-]
+] as Elements

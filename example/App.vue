@@ -10,10 +10,12 @@ import {
   FlowInstance,
   addEdge,
   removeElements,
+  useStore,
 } from '@braks/vue-flow'
 import initialElements from './elements'
 import { PathFindingEdge } from '~/index'
 
+const store = useStore()
 const elements = ref<Elements>(initialElements)
 const rfInstance = ref<FlowInstance | null>(null)
 const onElementsRemove = (elementsToRemove: Elements) => (elements.value = removeElements(elementsToRemove, elements.value))
@@ -28,11 +30,14 @@ const onLoad = (flowInstance: FlowInstance) => {
     <VueFlow
       class="vue-flow-basic-example"
       :elements="elements"
-      :edge-types="{ pathFinding: PathFindingEdge }"
+      :edge-types="['pathFinding']"
       @elements-remove="onElementsRemove"
       @connect="onConnect"
       @load="onLoad"
     >
+      <template #edge-pathFinding="props">
+        <PathFindingEdge v-bind="props" :nodes="store.nodes" />
+      </template>
       <Controls />
       <MiniMap />
       <Background color="#aaa" :gap="8" />

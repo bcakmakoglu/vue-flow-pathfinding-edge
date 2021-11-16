@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { CSSProperties } from 'vue'
-import { BezierEdge, useStore, getMarkerEnd, ArrowHeadType, ElementId, Position } from '@braks/vue-flow'
+import { BezierEdge, getMarkerEnd, ArrowHeadType, ElementId, Position, Node } from '@braks/vue-flow'
 import { createGrid, PointInfo, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
 import { generatePath } from './generatePath'
@@ -8,6 +8,7 @@ import { getBoundingBoxes } from './getBoundingBoxes'
 import { gridToGraphPoint } from './pointConversion'
 
 interface EdgeProps {
+  nodes: Node[]
   id: ElementId
   source: ElementId
   target: ElementId
@@ -51,11 +52,9 @@ const props = withDefaults(defineProps<EdgeProps>(), {
   labelBgStyle: () => ({}),
 })
 
-const store = useStore()
-
 // We use the node's information to generate bounding boxes for them
 // and the graph
-const bb = computed(() => getBoundingBoxes(store.nodes, nodePadding, graphPadding, roundCoordinatesTo))
+const bb = computed(() => getBoundingBoxes(props.nodes, nodePadding, graphPadding, roundCoordinatesTo))
 const source = computed<PointInfo>(() => ({
   x: props.sourceX,
   y: props.sourceY,
@@ -67,16 +66,21 @@ const target = computed<PointInfo>(() => ({
   position: props.targetPosition,
 }))
 
-// With this information, we can create a 2D grid representation of
-// our graph, that tells us where in the graph there is a "free" space or not
-const grid = computed(() => createGrid(bb.value.graph, bb.value.nodes, source.value, target.value))
-
 // We then can use the grid representation to do pathfinding
-const gridPath = computed(() => generatePath(grid.value.grid, grid.value.start, grid.value.end))
+const gridPath = computed(() => {
+  if (source.value.x && target.value.x) {
+    // With this information, we can create a 2D grid representation of
+    // our graph, that tells us where in the graph there is a "free" space or not
+    const g = createGrid(bb.value.graph, bb.value.nodes, source.value, target.value)
+    return generatePath(g.grid, g.start, g.end)
+  } else {
+    return [] as any[]
+  }
+})
 
 // Here we convert the grid path to a sequence of graph coordinates.
 const graphPath = computed(() =>
-  gridPath.value.map((gridPoint) => {
+  gridPath.value?.map((gridPoint) => {
     const [x, y] = gridPoint
     const graphPoint = gridToGraphPoint({ x, y }, bb.value.graph.xMin, bb.value.graph.yMin)
     return [graphPoint.x, graphPoint.y]

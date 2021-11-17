@@ -77,6 +77,8 @@ export default [
     id: 'e12',
     source: '1',
     target: '2',
+    label: 'Foobar',
+    style: { stroke: 'red' },
     type: 'pathFinding',
     arrowHeadType,
   },

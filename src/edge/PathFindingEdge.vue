@@ -1,13 +1,23 @@
 <script lang="ts" setup>
 import { CSSProperties } from 'vue'
-import { BezierEdge, getMarkerEnd, ArrowHeadType, ElementId, Position, Node } from '@braks/vue-flow'
+import {
+  getEdgeCenter,
+  BezierEdge,
+  EdgeText,
+  getMarkerEnd,
+  ArrowHeadType,
+  ElementId,
+  Position,
+  Node,
+  EdgeProps,
+} from '@braks/vue-flow'
 import { createGrid, PointInfo, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
 import { generatePath } from './generatePath'
 import { getBoundingBoxes } from './getBoundingBoxes'
 import { gridToGraphPoint } from './pointConversion'
 
-interface EdgeProps {
+interface PathFindingEdgeProps extends EdgeProps {
   nodes: Node[]
   id: ElementId
   source: ElementId
@@ -18,8 +28,8 @@ interface EdgeProps {
   targetY: number
   selected?: boolean
   animated?: boolean
-  sourcePosition?: Position
-  targetPosition?: Position
+  sourcePosition: Position
+  targetPosition: Position
   label?:
     | string
     | {
@@ -43,7 +53,7 @@ const nodePadding = 10
 const graphPadding = 20
 const roundCoordinatesTo = gridRatio
 
-const props = withDefaults(defineProps<EdgeProps>(), {
+const props = withDefaults(defineProps<PathFindingEdgeProps>(), {
   selected: false,
   sourcePosition: Position.Bottom,
   targetPosition: Position.Top,
@@ -90,8 +100,27 @@ const graphPath = computed(() =>
 // Finally, we can use the graph path to draw the edge
 const svgPathString = computed(() => drawSmoothLinePath(source.value, target.value, graphPath.value))
 const markerEnd = computed(() => getMarkerEnd(props.arrowHeadType, props.markerEndId))
+const centered = computed(() =>
+  getEdgeCenter({
+    ...props,
+  }),
+)
+const attrs: any = useAttrs()
 </script>
 <template>
-  <BezierEdge v-if="gridPath.length <= 2" v-bind="props" />
-  <path v-else :style="props.style" class="vue-flow__edge-path" :d="svgPathString" :marker-end="markerEnd" />
+  <BezierEdge v-if="gridPath.length <= 2" v-bind="{ ...props, ...attrs }" />
+  <template v-else>
+    <path :style="{ ...props.style, ...attrs.style }" class="vue-flow__edge-path" :d="svgPathString" :marker-end="markerEnd" />
+    <EdgeText
+      v-if="props.label"
+      :x="centered[0]"
+      :y="centered[1]"
+      :label="props.label"
+      :label-style="props.labelStyle"
+      :label-show-bg="props.labelShowBg"
+      :label-bg-style="props.labelBgStyle"
+      :label-bg-padding="props.labelBgPadding"
+      :label-bg-border-radius="props.labelBgBorderRadius"
+    />
+  </template>
 </template>

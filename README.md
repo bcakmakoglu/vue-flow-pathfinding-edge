@@ -35,15 +35,21 @@ import PathFindingEdge from '@braks/vue-flow-pathfinding-edge'
 import initialElements from './initial-elements'
 
 const elements = ref<Elements>(initialElements)
-useVueFlow({
+
+// create a new context so we can fetch nodes
+const store = useVueFlow({
   edgeTypes: {
-    pathFinding: PathFindingEdge
+    pathFinding: true
   }
 })
 </script>
 <template>
   <div style="height: 300px">
-    <VueFlow v-model="elements" />
+    <VueFlow v-model="elements">
+      <template #edge-pathFinding="props">
+        <PathFindingEdge :nodes="store.nodes" v-bind="props" />
+      </template>
+    </VueFlow>
   </div>
 </template>
 ```

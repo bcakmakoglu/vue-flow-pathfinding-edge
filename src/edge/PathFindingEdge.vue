@@ -8,8 +8,8 @@ import {
   ArrowHeadType,
   ElementId,
   Position,
-  Node,
   EdgeProps,
+  useVueFlow,
 } from '@braks/vue-flow'
 import { createGrid, PointInfo, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
@@ -18,7 +18,6 @@ import { getBoundingBoxes } from './getBoundingBoxes'
 import { gridToGraphPoint } from './pointConversion'
 
 interface PathFindingEdgeProps extends EdgeProps {
-  nodes: Node[]
   id: ElementId
   source: ElementId
   target: ElementId
@@ -62,9 +61,10 @@ const props = withDefaults(defineProps<PathFindingEdgeProps>(), {
   labelBgStyle: () => ({}),
 })
 
+const store = useVueFlow()
 // We use the node's information to generate bounding boxes for them
 // and the graph
-const bb = computed(() => getBoundingBoxes(props.nodes, nodePadding, graphPadding, roundCoordinatesTo))
+const bb = computed(() => getBoundingBoxes(store.nodes, nodePadding, graphPadding, roundCoordinatesTo))
 const source = computed<PointInfo>(() => ({
   x: props.sourceX,
   y: props.sourceY,
@@ -78,13 +78,13 @@ const target = computed<PointInfo>(() => ({
 
 // We then can use the grid representation to do pathfinding
 const gridPath = computed(() => {
-  if (source.value.x && target.value.x) {
+  if (source.value.x && target.value.x && bb.value.nodes && bb.value.graph) {
     // With this information, we can create a 2D grid representation of
     // our graph, that tells us where in the graph there is a "free" space or not
     const g = createGrid(bb.value.graph, bb.value.nodes, source.value, target.value)
     return generatePath(g.grid, g.start, g.end)
   } else {
-    return [] as any[]
+    return []
   }
 })
 
@@ -105,7 +105,7 @@ const centered = computed(() =>
     ...props,
   }),
 )
-const attrs: any = useAttrs()
+const attrs = useAttrs()
 </script>
 <template>
   <BezierEdge v-if="gridPath.length <= 2" v-bind="{ ...props, ...attrs }" />

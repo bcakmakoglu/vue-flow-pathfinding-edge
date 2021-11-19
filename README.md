@@ -10,8 +10,9 @@
 
 ### **Custom Edge that never crosses other Nodes**
 
+Check the [documentation](https://vueflow.dev/docs/addons/pathfinding) for more info on how to use this custom edge.
+
 ## 🛠 Setup
-Some info on setup here.
 
 ```bash
 # install
@@ -28,19 +29,55 @@ $ npm i --save @braks/vue-flow-pathfinding-edge
 import {
   VueFlow,
   Elements,
+  useVueFlow
 } from '@braks/vue-flow'
-import { PathFindingEdge } from '@braks/vue-flow-pathfinding-edge'
-import initialElements from './elements'
+import PathFindingEdge from '@braks/vue-flow-pathfinding-edge'
+import initialElements from './initial-elements'
 
 const elements = ref<Elements>(initialElements)
+useVueFlow({
+  edgeTypes: {
+    pathFinding: PathFindingEdge
+  }
+})
 </script>
 <template>
-  <div style="height: 100%">
-    <VueFlow
-      class="vue-flow-basic-example"
-      :elements="elements"
-      :edge-types="{ pathFinding: PathFindingEdge }"
-    />
+  <div style="height: 300px">
+    <VueFlow v-model="elements" />
   </div>
 </template>
+```
+
+```typescript
+// initial-elements.ts
+export default [
+  {
+    id: '1',
+    data: {
+      label: 'Node 1',
+    },
+    position: {
+      x: 430,
+      y: 0,
+    },
+  },
+  {
+    id: '2',
+    data: {
+      label: 'Node 2',
+    },
+    position: {
+      x: 230,
+      y: 90,
+    },
+  },
+  {
+    id: 'e12',
+    source: '1',
+    target: '2',
+    label: 'Smart Edge',
+    style: { stroke: 'red' },
+    type: 'pathFinding'
+  },
+]
 ```

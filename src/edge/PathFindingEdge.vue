@@ -80,14 +80,14 @@ const target = computed(() => ({
   position: props.targetPosition,
 }))
 
-// We use the node's information to generate bounding boxes for them
+// We use the nodes information to generate bounding boxes for them
 // and the graph
 const bb = computed(() => getBoundingBoxes(store.nodes, nodePadding, graphPadding, roundCoordinatesTo))
 
 const gridPath = computed(() => {
   let grid: number[][] = []
 
-  if (target.value.x && source.value.x) {
+  if (target.value.x && source.value.x && store.nodes.length) {
     // We then can use the grid representation to do pathfinding
     // With this information, we can create a 2D grid representation of
     // our graph, that tells us where in the graph there is a "free" space or not
@@ -100,7 +100,7 @@ const gridPath = computed(() => {
 
 const path = computed(() => {
   let svgPath = ''
-  if (gridPath.value.length) {
+  if (gridPath.value?.length) {
     // Here we convert the grid path to a sequence of graph coordinates.
     const graphPath = gridPath.value.map((gridPoint) => {
       const [x, y] = gridPoint
@@ -117,7 +117,7 @@ const path = computed(() => {
 const attrs: any = useAttrs()
 </script>
 <template>
-  <BezierEdge v-if="gridPath.length <= 2" v-bind="{ ...props, ...attrs }" />
+  <BezierEdge v-if="gridPath?.length <= 2" v-bind="{ ...props, ...attrs }" />
   <template v-else>
     <path :style="{ ...props.style, ...attrs.style }" class="vue-flow__edge-path" :d="path" :marker-end="markerEnd" />
     <EdgeText

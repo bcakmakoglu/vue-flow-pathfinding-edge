@@ -39,7 +39,7 @@ const onLoad = (flowInstance: FlowInstance) => {
       @load="onLoad"
     >
       <template #edge-pathFinding="props">
-        <PathFindingEdge v-bind="props" />
+        <PathFindingEdge :nodes="store.nodes" v-bind="props" />
       </template>
       <Controls />
       <MiniMap />

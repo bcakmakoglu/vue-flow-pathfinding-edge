@@ -9,7 +9,7 @@ import {
   ElementId,
   Position,
   EdgeProps,
-  useVueFlow,
+  Node,
 } from '@braks/vue-flow'
 import { createGrid, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
@@ -18,6 +18,7 @@ import { getBoundingBoxes } from './getBoundingBoxes'
 import { gridToGraphPoint } from './pointConversion'
 
 interface PathFindingEdgeProps extends EdgeProps {
+  nodes: Node[]
   id: ElementId
   source: ElementId
   target: ElementId
@@ -53,6 +54,7 @@ const graphPadding = 20
 const roundCoordinatesTo = gridRatio
 
 const props = withDefaults(defineProps<PathFindingEdgeProps>(), {
+  nodes: () => [],
   selected: false,
   sourcePosition: Position.Bottom,
   targetPosition: Position.Top,
@@ -61,14 +63,12 @@ const props = withDefaults(defineProps<PathFindingEdgeProps>(), {
   labelBgStyle: () => ({}),
 })
 
-const store = useVueFlow()
 const markerEnd = computed(() => getMarkerEnd(props.arrowHeadType, props.markerEndId))
 const centered = computed(() =>
   getEdgeCenter({
     ...props,
   }),
 )
-
 const source = computed(() => ({
   x: props.sourceX,
   y: props.sourceY,
@@ -82,12 +82,12 @@ const target = computed(() => ({
 
 // We use the nodes information to generate bounding boxes for them
 // and the graph
-const bb = computed(() => getBoundingBoxes(store.nodes, nodePadding, graphPadding, roundCoordinatesTo))
+const bb = computed(() => getBoundingBoxes(props.nodes, nodePadding, graphPadding, roundCoordinatesTo))
 
 const gridPath = computed(() => {
   let grid: number[][] = []
 
-  if (target.value.x && source.value.x && store.nodes.length) {
+  if (target.value.x && source.value.x && props.nodes.length) {
     // We then can use the grid representation to do pathfinding
     // With this information, we can create a 2D grid representation of
     // our graph, that tells us where in the graph there is a "free" space or not
@@ -117,7 +117,7 @@ const path = computed(() => {
 const attrs: any = useAttrs()
 </script>
 <template>
-  <BezierEdge v-if="gridPath?.length <= 2" v-bind="{ ...props, ...attrs }" />
+  <BezierEdge v-if="gridPath && gridPath.length <= 2" v-bind="{ ...props, ...attrs }" />
   <template v-else>
     <path :style="{ ...props.style, ...attrs.style }" class="vue-flow__edge-path" :d="path" :marker-end="markerEnd" />
     <EdgeText

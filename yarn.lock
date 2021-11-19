@@ -296,10 +296,10 @@
     "@vueuse/core" "^5.1.3"
     vue-demi latest
 
-"@braks/vue-flow@0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@braks/vue-flow/-/vue-flow-0.0.29.tgz#1c82158b417ac892b88ef1d52f59d26a330848bc"
-  integrity sha512-MAc6Lg3PR8Sp+YAYYADDiqSkdnANlgZ92gtBetmsDTWFaZsyTFnKA6qZXoahEESJRmhod+cWuDP74ar5m0oJ/Q==
+"@braks/vue-flow@0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@braks/vue-flow/-/vue-flow-0.0.30.tgz#9955654444c8b0343b5ad2c7ebfdcf3871abd1a2"
+  integrity sha512-6a3MADXlAKJXmBNyVqFEeijWe5xLBGObiqbiypXACbkGReJ9leZDy9cs9dmo4RAKARDeYbAC9ouy2ycTarJLXw==
   dependencies:
     "@braks/revue-draggable" "^0.3.7"
     "@types/d3" "^7.1.0"

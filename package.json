@@ -53,7 +53,7 @@
     "vue": "^3.2.21"
   },
   "peerDependencies": {
-    "@braks/vue-flow": "^0.0.29",
+    "@braks/vue-flow": "^0.0.30",
     "vue": "^3.2.21"
   },
   "publishConfig": {

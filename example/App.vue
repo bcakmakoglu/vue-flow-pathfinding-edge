@@ -16,9 +16,7 @@ import initialElements from './elements'
 import PathFindingEdge from '~/index'
 
 const store = useVueFlow({
-  edgeTypes: {
-    pathFinding: true,
-  },
+  edgeTypes: ['pathFinding'],
 })
 const elements = ref<Elements>(initialElements)
 const rfInstance = ref<FlowInstance | null>(null)

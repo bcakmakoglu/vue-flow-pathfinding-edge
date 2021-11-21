@@ -1,5 +1,5 @@
+import { XYPosition, GraphNode } from '@braks/vue-flow'
 import { roundUp, roundDown } from './utils'
-import { XYPosition, Node } from '@braks/vue-flow'
 
 export type NodeBoundingBox = {
   id: string
@@ -34,7 +34,7 @@ export type GraphBoundingBox = {
  * @param roundTo If the coordinates should be rounded to this nearest integer
  * @returns Graph and nodes bounding boxes.
  */
-export const getBoundingBoxes = (storeNodes: Node[], nodePadding = 0, graphPadding = 0, roundTo = 0) => {
+export const getBoundingBoxes = (storeNodes: GraphNode[], nodePadding = 0, graphPadding = 0, roundTo = 0) => {
   // Guarantee that the given parameters are positive integers
   nodePadding = Math.max(Math.round(nodePadding), 0)
   graphPadding = Math.max(Math.round(graphPadding), 0)
@@ -50,7 +50,7 @@ export const getBoundingBoxes = (storeNodes: Node[], nodePadding = 0, graphPaddi
   let yMin = Number.MAX_SAFE_INTEGER
 
   const nodes: NodeBoundingBox[] = storeNodes.map((node) => {
-    const rf = node?.__rf
+    const rf = node?.__vf
     const width = Math.max(rf?.width || 0, 1)
     const height = Math.max(rf?.height || 0, 1)
 

@@ -9,7 +9,7 @@ import {
   ElementId,
   Position,
   EdgeProps,
-  Node,
+  GraphNode,
 } from '@braks/vue-flow'
 import { createGrid, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
@@ -18,7 +18,7 @@ import { getBoundingBoxes } from './getBoundingBoxes'
 import { gridToGraphPoint } from './pointConversion'
 
 interface PathFindingEdgeProps extends EdgeProps {
-  nodes: Node[]
+  nodes: GraphNode[]
   id: ElementId
   source: ElementId
   target: ElementId
@@ -85,17 +85,17 @@ const target = computed(() => ({
 const bb = computed(() => getBoundingBoxes(props.nodes, nodePadding, graphPadding, roundCoordinatesTo))
 
 const gridPath = computed(() => {
-  let grid: number[][] = []
+  let path: number[][] = []
 
   if (target.value.x && source.value.x && props.nodes.length) {
     // We then can use the grid representation to do pathfinding
     // With this information, we can create a 2D grid representation of
     // our graph, that tells us where in the graph there is a "free" space or not
-    const g = createGrid(bb.value.graph, bb.value.nodes, source.value, target.value)
-    grid = generatePath(g.grid, g.start, g.end)
+    const { grid, start, end } = createGrid(bb.value.graph, bb.value.nodes, source.value, target.value)
+    path = generatePath(grid, start, end)
   }
 
-  return grid
+  return path
 })
 
 const path = computed(() => {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { CSSProperties } from 'vue'
+import { Component, CSSProperties, DefineComponent } from 'vue'
 import {
   getEdgeCenter,
   BezierEdge,
@@ -10,6 +10,7 @@ import {
   Position,
   EdgeProps,
   GraphNode,
+  EdgeTextProps,
 } from '@braks/vue-flow'
 import { createGrid, gridRatio } from './createGrid'
 import { drawSmoothLinePath } from './drawSvgPath'
@@ -33,8 +34,8 @@ interface PathFindingEdgeProps extends EdgeProps {
   label?:
     | string
     | {
-        component: any
-        props?: any
+        component: Component<EdgeTextProps> | DefineComponent<EdgeTextProps>
+        props?: EdgeTextProps
       }
   labelStyle?: any
   labelShowBg?: boolean

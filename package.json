@@ -24,7 +24,7 @@
   "scripts": {
     "prepare": "ts-patch install -s",
     "dev": "vite",
-    "build": "vite build && tsc && rm -rf tmp",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly && tsc && rm -rf tmp",
     "prepublishOnly": "yarn build",
     "test": "exit 0;",
     "lint:js": "eslint --ext \".js,.jsx,.ts,.tsx\" --fix --ignore-path .gitignore .",
@@ -50,7 +50,8 @@
     "typescript-transform-paths": "^3.3.1",
     "unplugin-auto-import": "^0.4.12",
     "vite": "^2.6.10",
-    "vue": "^3.2.21"
+    "vue": "^3.2.21",
+    "vue-tsc": "^0.29.6"
   },
   "peerDependencies": {
     "@braks/vue-flow": "^0.1.0",

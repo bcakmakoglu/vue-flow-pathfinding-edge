@@ -38,9 +38,7 @@ const elements = ref<Elements>(initialElements)
 
 // create a new context so we can fetch nodes
 const store = useVueFlow({
-  edgeTypes: {
-    pathFinding: true
-  }
+  edgeTypes: ['pathFinding']
 })
 </script>
 <template>

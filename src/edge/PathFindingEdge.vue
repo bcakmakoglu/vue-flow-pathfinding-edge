@@ -117,6 +117,12 @@ const path = computed(() => {
 })
 const attrs: any = useAttrs()
 </script>
+<script lang="ts">
+export default {
+  name: 'PathFindingEdge',
+  inheritAttrs: false,
+}
+</script>
 <template>
   <BezierEdge v-if="gridPath && gridPath.length <= 2" v-bind="{ ...props, ...attrs }" />
   <template v-else>

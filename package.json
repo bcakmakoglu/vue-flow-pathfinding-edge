@@ -31,9 +31,10 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
-    "@braks/vue-flow": "^0.1.0",
+    "@braks/vue-flow": "^0.2.0",
     "@vueuse/core": "^6.9.1",
-    "pathfinding": "^0.4.18"
+    "pathfinding": "^0.4.18",
+    "perfect-arrows": "^0.3.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.9.0",

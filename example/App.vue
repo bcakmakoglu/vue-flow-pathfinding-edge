@@ -13,7 +13,7 @@ import {
   useVueFlow,
 } from '@braks/vue-flow'
 import initialElements from './elements'
-import PathFindingEdge from '~/index'
+import { PathFindingEdge } from '~/index'
 
 const store = useVueFlow({
   edgeTypes: ['pathFinding'],

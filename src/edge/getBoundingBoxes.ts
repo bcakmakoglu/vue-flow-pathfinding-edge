@@ -50,13 +50,16 @@ export const getBoundingBoxes = (storeNodes: GraphNode[], nodePadding = 0, graph
   let yMin = Number.MAX_SAFE_INTEGER
 
   const nodes: NodeBoundingBox[] = storeNodes.map((node) => {
-    const rf = node?.__vf
-    const width = Math.max(rf?.width || 0, 1)
-    const height = Math.max(rf?.height || 0, 1)
+    const {
+      position: { x, y },
+      __vf,
+    } = node
+    const width = Math.max(__vf.width || 0, 1)
+    const height = Math.max(__vf.height || 0, 1)
 
     const position: XYPosition = {
-      x: rf?.position?.x || 0,
-      y: rf?.position?.y || 0,
+      x: x || 0,
+      y: y || 0,
     }
     const topLeft: XYPosition = {
       x: position.x - nodePadding,

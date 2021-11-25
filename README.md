@@ -31,7 +31,7 @@ import {
   Elements,
   useVueFlow
 } from '@braks/vue-flow'
-import PathFindingEdge from '@braks/vue-flow-pathfinding-edge'
+import { PathFindingEdge } from '@braks/vue-flow-pathfinding-edge'
 import initialElements from './initial-elements'
 
 const elements = ref<Elements>(initialElements)
@@ -45,7 +45,7 @@ const store = useVueFlow({
   <div style="height: 300px">
     <VueFlow v-model="elements">
       <template #edge-pathFinding="props">
-        <PathFindingEdge :nodes="store.nodes" v-bind="props" />
+        <PathFindingEdge :nodes="store.getNodes" v-bind="props" />
       </template>
     </VueFlow>
   </div>

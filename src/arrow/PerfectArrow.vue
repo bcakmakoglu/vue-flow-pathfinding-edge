@@ -1,23 +1,12 @@
 <script lang="ts" setup>
-import {
-  ArrowHeadType,
-  EdgeProps,
-  EdgeTextProps,
-  ElementId,
-  getEdgeCenter,
-  getMarkerEnd,
-  GraphNode,
-  Position,
-  EdgeText,
-} from '@braks/vue-flow'
+import { EdgeProps, EdgeTextProps, getEdgeCenter, Position, EdgeText } from '@braks/vue-flow'
 import { CSSProperties, DefineComponent } from 'vue'
 import { ArrowOptions, getArrow } from 'perfect-arrows'
 
 interface PerfectArrowProps extends EdgeProps {
-  nodes: GraphNode[]
-  id: ElementId
-  source: ElementId
-  target: ElementId
+  id: string
+  source: string
+  target: string
   sourceX: number
   sourceY: number
   targetX: number
@@ -38,11 +27,11 @@ interface PerfectArrowProps extends EdgeProps {
   labelBgPadding?: [number, number]
   labelBgBorderRadius?: number
   style?: CSSProperties
-  arrowHeadType?: ArrowHeadType
-  markerEndId?: string
+  markerEnd?: string
+  markerStart?: string
   data?: any
-  sourceHandleId?: ElementId
-  targetHandleId?: ElementId
+  sourceHandleId?: string
+  targetHandleId?: string
   options?: ArrowOptions
 }
 
@@ -59,8 +48,6 @@ const centered = computed(() =>
     ...props,
   }),
 )
-
-const markerEnd = computed(() => getMarkerEnd(props.arrowHeadType, props.markerEndId))
 
 const arrow = computed(() => {
   return getArrow(props.sourceX, props.sourceY, props.targetX, props.targetY, {
@@ -81,7 +68,8 @@ export default {
     :style="{ ...props.style, ...attrs.style }"
     class="vue-flow__edge-path vue-flow__perfect-arrow"
     :d="`M${arrow[0]},${arrow[1]} Q${arrow[2]},${arrow[3]} ${arrow[4]},${arrow[5]}`"
-    :marker-end="markerEnd"
+    :marker-end="props.markerEnd"
+    :marker-start="props.markerStart"
   />
   <EdgeText
     v-if="props.label"

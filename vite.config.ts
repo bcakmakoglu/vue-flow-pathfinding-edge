@@ -16,7 +16,7 @@ export default defineConfig({
     minify: 'esbuild',
     emptyOutDir: false,
     lib: {
-      formats: ['es', 'iife'],
+      formats: ['es', 'cjs', 'iife'],
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'vueFlowPathfindingEdge',
     },

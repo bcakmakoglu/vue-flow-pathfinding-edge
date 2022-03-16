@@ -9,11 +9,7 @@
   "homepage": "https//vueflow.dev/docs/addons/pathfinding",
   "license": "MIT",
   "author": "Burak Cakmakoglu<brainbraks@googlemail.com>",
-  "exports": {
-    ".": "./dist/vue-flow-pathfinding-edge.es.js",
-    "./*": "./*"
-  },
-  "main": "./dist/vue-flow-pathfinding-edge.es.js",
+  "main": "./dist/vue-flow-pathfinding-edge.cjs.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/vue-flow-pathfinding-edge.es.js",
   "unpkg": "./dist/vue-flow-pathfinding-edge.iife.js",

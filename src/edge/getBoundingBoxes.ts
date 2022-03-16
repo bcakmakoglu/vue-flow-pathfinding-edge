@@ -51,11 +51,11 @@ export const getBoundingBoxes = (storeNodes: GraphNode[], nodePadding = 0, graph
 
   const nodes: NodeBoundingBox[] = storeNodes.map((node) => {
     const {
-      position: { x, y },
-      __vf,
+      computedPosition: { x, y },
+      dimensions,
     } = node
-    const width = Math.max(__vf.width || 0, 1)
-    const height = Math.max(__vf.height || 0, 1)
+    const width = Math.max(dimensions.width || 0, 1)
+    const height = Math.max(dimensions.height || 0, 1)
 
     const position: XYPosition = {
       x: x || 0,

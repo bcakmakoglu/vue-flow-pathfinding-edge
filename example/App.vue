@@ -1,26 +1,10 @@
 <script lang="ts" setup>
-import {
-  VueFlow,
-  MiniMap,
-  Controls,
-  Background,
-  Connection,
-  Edge,
-  Elements,
-  FlowInstance,
-  addEdge,
-  removeElements,
-  useVueFlow,
-} from '@braks/vue-flow'
+import { VueFlow, MiniMap, Controls, Background, Connection, Edge, Elements, FlowInstance, addEdge } from '@braks/vue-flow'
 import initialElements from './elements'
 import { PathFindingEdge } from '~/index'
 
-const store = useVueFlow({
-  edgeTypes: ['pathFinding'],
-})
 const elements = ref<Elements>(initialElements)
 const rfInstance = ref<FlowInstance | null>(null)
-const onElementsRemove = (elementsToRemove: Elements) => (elements.value = removeElements(elementsToRemove, elements.value))
 const onConnect = (params: Edge | Connection) => (elements.value = addEdge(params, elements.value))
 const onLoad = (flowInstance: FlowInstance) => {
   flowInstance.fitView({ padding: 1 })
@@ -29,15 +13,9 @@ const onLoad = (flowInstance: FlowInstance) => {
 </script>
 <template>
   <div style="height: 100%">
-    <VueFlow
-      v-model="elements"
-      class="vue-flow-basic-example"
-      @elements-remove="onElementsRemove"
-      @connect="onConnect"
-      @load="onLoad"
-    >
+    <VueFlow v-model="elements" class="vue-flow-basic-example" @connect="onConnect" @pane-ready="onLoad">
       <template #edge-pathFinding="props">
-        <PathFindingEdge :nodes="store.nodes" v-bind="props" />
+        <PathFindingEdge v-bind="props" />
       </template>
       <Controls />
       <MiniMap />
